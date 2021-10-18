@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using WeatherApp.ViewModels;
+using WeatherApp.Models;
+using WeatherApp.Services;
 using Xunit;
+
 
 namespace WeatherStationTests
 {
@@ -28,10 +31,13 @@ namespace WeatherStationTests
         public void MPStoKPH_AlwaysReturnGoodValue(double mps, double expected)
         {
             // Arrange
+            //WindDataViewModel _sut = new WindDataViewModel();
 
             // Act       
+            double kph = _sut.MPStoKPH(mps);
 
             // Assert
+            Assert.Equal(expected, kph);
 
             /// TODO : git commit -a -m "T01 MPStoKPH_AlwaysReturnGoodValue : Done"
         }
