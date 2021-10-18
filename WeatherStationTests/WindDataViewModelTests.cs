@@ -6,6 +6,7 @@ using WeatherApp.ViewModels;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using Xunit;
+using Moq;
 
 
 namespace WeatherStationTests
@@ -114,10 +115,14 @@ namespace WeatherStationTests
         public void CanGetData_WhenServiceIsSet_ReturnsTrue()
         {
             // Arrange
+            Mock<IWindDataService> MockWDS = new Mock<IWindDataService>();
+            _sut.SetIWindDataService(MockWDS.Object);
 
-            // Act       
+            // Act
+            var actual = _sut.CanGetData();
 
             // Assert
+            Assert.True(actual);
 
             /// TODO : git commit -a -m "T05 CanGetData_WhenServiceIsSet_ReturnsTrue : Done"
         }
