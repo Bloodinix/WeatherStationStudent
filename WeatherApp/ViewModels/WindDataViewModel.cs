@@ -18,7 +18,7 @@ namespace WeatherApp.ViewModels
 
         public WindDataModel CurrentData;
 
-        public void SetIWindDataService(IWindDataService iWDS)
+        public void SetWindDataService(IWindDataService iWDS)
         {
             WindDataService = iWDS;
         }
