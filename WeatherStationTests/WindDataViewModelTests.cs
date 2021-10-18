@@ -7,6 +7,7 @@ using WeatherApp.Models;
 using WeatherApp.Services;
 using Xunit;
 using Moq;
+using System.Threading.Tasks;
 
 
 namespace WeatherStationTests
@@ -152,13 +153,25 @@ namespace WeatherStationTests
         /// </summary>
         /// <remarks>T07</remarks>
         [Fact]
-        public void GetDataCommand_HaveCurrentDataWhenExecuted_ShouldPass()
+        public async void GetDataCommand_HaveCurrentDataWhenExecuted_ShouldPass()
         {
             // Arrange
+            Mock<IWindDataService> mockWDS = new Mock<IWindDataService>();
+
+            WindDataModel DataMockWDM = new WindDataModel();
+
+            DataMockWDM.DateTime = DateTime.Now;
+            DataMockWDM.MetrePerSec = 34.26;
+            DataMockWDM.Direction = 20.11;
+
+            mockWDS.Setup(x => x.GetDataAsync()).Returns(Task.FromResult(DataMockWDM));
+
 
             // Act       
+            _sut.CurrentData = await mockWDS.Object.GetDataAsync();
 
             // Assert
+            Assert.NotNull(_sut.CurrentData);
 
             /// TODO : git commit -a -m "T07 GetDataCommand_HaveCurrentDataWhenExecuted_ShouldPass : Done"
         }
